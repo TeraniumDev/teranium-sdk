@@ -1,5 +1,5 @@
 # Teranium (Anchor Program + SDK + Integrator)
-![Snowy](assets/benner.png)
+![Teranium](assets/banner.png)
 Teranium is a PDA-authorized Solana program implementing per-mint vaults (deposit/withdraw) and deterministic oracle-priced swaps against the USDC vault. This repository contains:
 
 - On-chain Anchor program: [anchor/programs/teranium/src/lib.rs](anchor/programs/teranium/src/lib.rs)
