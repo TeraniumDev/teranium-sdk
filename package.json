@@ -1,0 +1,17 @@
+{
+  "name": "teranium",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run -w @teranium/sdk build && npm run -w @teranium/integrator build",
+    "dev": "npm run -w @teranium/sdk build && npm run -w @teranium/integrator dev",
+    "lint": "npm run -w @teranium/integrator lint"
+  },
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  }
+}

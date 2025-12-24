@@ -1,0 +1,22 @@
+[features]
+seeds = false
+skip-lint = false
+
+[programs.mainnet]
+teranium = "Dx9ZBP9kFYjvZX6sY6bHKgyD3BQtTmnhU6apDpMUAMWV"
+
+[programs.devnet]
+teranium = "Dx9ZBP9kFYjvZX6sY6bHKgyD3BQtTmnhU6apDpMUAMWV"
+
+[programs.localnet]
+teranium = "Dx9ZBP9kFYjvZX6sY6bHKgyD3BQtTmnhU6apDpMUAMWV"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "mainnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+# anchor test uses ts-mocha; kept for compatibility

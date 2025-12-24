@@ -1,0 +1,696 @@
+{
+  "address": "Dx9ZBP9kFYjvZX6sY6bHKgyD3BQtTmnhU6apDpMUAMWV",
+  "metadata": {
+    "name": "teranium",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Teranium: PDA-authorized single-asset vaults with oracle-priced swaps"
+  },
+  "instructions": [
+    {
+      "name": "initializeVault",
+      "discriminator": [
+        48,
+        191,
+        163,
+        44,
+        71,
+        129,
+        63,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "signer": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vaultAuthority",
+          "writable": false,
+          "signer": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vaultTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "systemProgram",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "tokenProgram",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "rent",
+          "writable": false,
+          "signer": false
+        }
+      ],
+      "args": [
+        {
+          "name": "mint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "deposit",
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "signer": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vaultAuthority",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "userPosition",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "userTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "vaultTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "systemProgram",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "tokenProgram",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "rent",
+          "writable": false,
+          "signer": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "vaultAuthority",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "userPosition",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "userTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "vaultTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "tokenProgram",
+          "writable": false,
+          "signer": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "oracleSwap",
+      "discriminator": [
+        229,
+        145,
+        180,
+        24,
+        17,
+        99,
+        65,
+        221
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "baseVault",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "baseVaultAuthority",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "baseVaultTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "baseMint",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "usdcVault",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "usdcVaultAuthority",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "usdcVaultTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "usdcMint",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "userFromTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "userToTokenAccount",
+          "writable": true,
+          "signer": false
+        },
+        {
+          "name": "pythPriceAccount",
+          "writable": false,
+          "signer": false
+        },
+        {
+          "name": "tokenProgram",
+          "writable": false,
+          "signer": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "maxSlippageBps",
+          "type": "u16"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "vaultAccount",
+      "discriminator": [
+        230,
+        251,
+        241,
+        83,
+        139,
+        202,
+        93,
+        28
+      ]
+    },
+    {
+      "name": "userPosition",
+      "discriminator": [
+        251,
+        248,
+        209,
+        245,
+        83,
+        234,
+        17,
+        27
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "vaultAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "authorityBump",
+            "type": "u8"
+          },
+          {
+            "name": "totalDeposits",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "userPosition",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "deposited",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "VaultInitialized",
+      "discriminator": [
+        180,
+        43,
+        207,
+        2,
+        18,
+        71,
+        3,
+        75
+      ],
+      "fields": [
+        {
+          "name": "vault",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "mint",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "vaultBump",
+          "type": "u8",
+          "index": false
+        },
+        {
+          "name": "authorityBump",
+          "type": "u8",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "Deposited",
+      "discriminator": [
+        111,
+        141,
+        26,
+        45,
+        161,
+        35,
+        100,
+        57
+      ],
+      "fields": [
+        {
+          "name": "owner",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "vault",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "depositedAfter",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "totalDepositsAfter",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "Withdrawn",
+      "discriminator": [
+        20,
+        89,
+        223,
+        198,
+        194,
+        124,
+        219,
+        13
+      ],
+      "fields": [
+        {
+          "name": "owner",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "vault",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "depositedAfter",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "totalDepositsAfter",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "OracleSwapped",
+      "discriminator": [
+        5,
+        212,
+        100,
+        156,
+        114,
+        161,
+        163,
+        243
+      ],
+      "fields": [
+        {
+          "name": "user",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "baseVault",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "usdcVault",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "fromMint",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "toMint",
+          "type": "pubkey",
+          "index": false
+        },
+        {
+          "name": "amountIn",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "amountOut",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "oraclePrice",
+          "type": "i64",
+          "index": false
+        },
+        {
+          "name": "oracleConf",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "oracleExpo",
+          "type": "i32",
+          "index": false
+        },
+        {
+          "name": "direction",
+          "type": "u8",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAmount",
+      "msg": "Invalid amount"
+    },
+    {
+      "code": 6001,
+      "name": "MintMismatch",
+      "msg": "Mint mismatch"
+    },
+    {
+      "code": 6002,
+      "name": "Unauthorized",
+      "msg": "Unauthorized"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidUserPosition",
+      "msg": "Invalid user position"
+    },
+    {
+      "code": 6004,
+      "name": "InsufficientDepositedBalance",
+      "msg": "Insufficient deposited balance"
+    },
+    {
+      "code": 6005,
+      "name": "MathOverflow",
+      "msg": "Math overflow"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidSlippageBps",
+      "msg": "Invalid slippage bps"
+    },
+    {
+      "code": 6007,
+      "name": "OracleNoPrice",
+      "msg": "Oracle has no price"
+    },
+    {
+      "code": 6008,
+      "name": "OracleStale",
+      "msg": "Oracle price is stale"
+    },
+    {
+      "code": 6009,
+      "name": "OracleInvalidPrice",
+      "msg": "Oracle price invalid"
+    },
+    {
+      "code": 6010,
+      "name": "OracleInvalidConfidence",
+      "msg": "Oracle confidence invalid"
+    },
+    {
+      "code": 6011,
+      "name": "OracleSlippageExceeded",
+      "msg": "Oracle slippage exceeded"
+    },
+    {
+      "code": 6012,
+      "name": "InvalidUsdcMint",
+      "msg": "Invalid USDC mint"
+    },
+    {
+      "code": 6013,
+      "name": "InvalidSwapPair",
+      "msg": "Invalid swap pair"
+    },
+    {
+      "code": 6014,
+      "name": "SwapZeroOut",
+      "msg": "Swap would produce zero output"
+    },
+    {
+      "code": 6015,
+      "name": "InsufficientVaultLiquidity",
+      "msg": "Insufficient vault liquidity"
+    }
+  ]
+}
